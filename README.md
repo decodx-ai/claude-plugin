@@ -18,7 +18,7 @@ This plugin connects Claude Code to the decodx remote MCP server (`https://api.d
 1. Add the marketplace:
 
    ```bash
-   claude plugin marketplace add decodx/claude-plugin
+   claude plugin marketplace add decodx-ai/claude-plugin
    ```
 
 2. Install the plugin:
