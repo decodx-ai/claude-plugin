@@ -136,10 +136,32 @@ claude-plugin/
 ├── .claude-plugin/
 │   ├── plugin.json            # Plugin metadata
 │   └── marketplace.json       # Marketplace metadata
+├── .github/workflows/
+│   └── release.yml            # Makes a release from a version
 ├── .mcp.json                  # Connection to the decodx MCP server
+├── scripts/
+│   └── normalize-version.sh   # Changes 0.0.1 to v0.0.1
 └── skills/
     └── decodx-video/
         └── SKILL.md           # The procedure to make a video
+```
+
+## Release a new version
+
+Only maintainers do this procedure.
+
+1. On GitHub, open **Actions**.
+2. Select the **Release** workflow.
+3. Select **Run workflow**.
+4. Type the version, for example `0.0.1` or `v0.0.1`. Both give the tag `v0.0.1`.
+5. Select **Run workflow** again.
+
+The workflow checks the version and the plugin files. Then it sets the version in `plugin.json`, makes the tag and makes the GitHub release. A version with a hyphen, for example `1.0.0-beta.1`, becomes a pre-release.
+
+Users get the new version with this command:
+
+```bash
+claude plugin marketplace update decodx
 ```
 
 ## Documentation
