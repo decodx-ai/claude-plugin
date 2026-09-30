@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "decodx": {
+      "type": "http",
+      "url": "https://api.decodx.ai/mcp"
+    }
+  }
+}

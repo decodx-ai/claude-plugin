@@ -1,0 +1,17 @@
+{
+  "name": "decodx",
+  "owner": {
+    "name": "decodx",
+    "email": "support@decodx.ai"
+  },
+  "metadata": {
+    "description": "decodx for Claude: the decodx MCP server and the decodx-video skill for making narrated videos."
+  },
+  "plugins": [
+    {
+      "name": "decodx",
+      "source": "./",
+      "description": "The decodx MCP server plus the decodx-video skill."
+    }
+  ]
+}
