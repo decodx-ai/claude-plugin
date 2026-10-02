@@ -1,10 +1,11 @@
 ---
 name: decodx-video
 description: >-
-  Make narrated product videos, explainers, tutorials and deck-to-video with the decodx MCP server
-  (tools like create_project, add_scenes, validate_project, preview_scene, render_project). Use when
-  the user wants to create, edit or render a video with decodx; follow the validate → preview →
-  render loop so every render succeeds first time.
+  Make narrated product videos, explainers, tutorials and deck-to-video with the decodx MCP server,
+  building scenes as motion scenes (animated charts, diagrams, flows and kinetic text you write as
+  HTML/GSAP, synced to the voice) by default. Use when the user wants to create, edit or render a
+  video with decodx; follow the validate → preview → render loop so every render succeeds first
+  time.
 license: Proprietary — for use with the decodx service
 ---
 
@@ -13,6 +14,26 @@ license: Proprietary — for use with the decodx service
 decodx turns a list of scenes into a finished MP4 with captions, chapters and a thumbnail. The same
 scenes always render the same video. You drive it through the decodx MCP server
 (`https://api.decodx.ai/mcp`), which this plugin connects.
+
+## Motion scenes first
+
+A motion scene is decodx's most powerful scene: you design the visual yourself in HTML, CSS, SVG and
+GSAP, and decodx times every beat to the exact word the voice says. Anything a browser can draw, a
+motion scene can show — a chart that grows as the number is spoken, a diagram that builds step by
+step, a before/after wipe, a timeline, a mock of the UI idea. Templates can't do that.
+
+**Make every scene a motion scene unless another kind is clearly better:**
+
+| Use instead | Only when |
+|---|---|
+| Recording or uploaded video | The scene must show the real product on screen |
+| Slide (`title`, `section`, `cta`) | An opening title, a chapter break or the closing call to action |
+| Avatar | The user asked for a presenter on screen |
+
+If a scene's narration has a number, a sequence, a comparison, a process or a structure, it is a
+motion scene. Even a scene you would make a bullet list is better as motion: reveal each point on
+the word that introduces it. Read [motion-scenes.md](motion-scenes.md) before writing the first one —
+it has the patterns, the cue rules and a complete example.
 
 ## The loop that renders first time
 
@@ -23,10 +44,13 @@ scenes always render the same video. You drive it through the decodx MCP server
    - presenters: `list_avatars`
    - voices: listed in `set_voice`'s description
    The same catalogs are MCP resources (`decodx://catalog/...`).
-3. **Build scenes.** `add_scenes` / `update_scenes`. Every write replies with a validation digest —
-   fix what it lists as you go.
-4. **Motion scenes** (animated charts, diagrams): `add_motion_scene` → `time_motion_scene` (records
-   the voice, returns word timings) → `set_motion_animation` until it reports ✓.
+3. **Plan the scenes, motion first.** Write the narration scene by scene, and for each one decide
+   its kind using the table above — motion unless there is a reason not to.
+4. **Build motion scenes:** `add_motion_scene` (narration + cues) → `time_motion_scene` (records
+   the voice, returns the exact time of every word and cue) → `set_motion_animation` (your HTML;
+   returns findings and a frame at each cue) — look at the frames, fix, and call again until it
+   reports ✓. Build the other scenes with `add_scenes` / `update_scenes`. Every write replies with a
+   validation digest — fix what it lists as you go.
 5. **Look before you render.** `preview_scene` returns frames of a slide, title, terminal or motion
    scene plus any layout problem (overflowing or clipped text) — the same audit the render runs.
 6. **Validate.** `validate_project` returns every issue at once, each with a fix and a rule id.

@@ -6,7 +6,7 @@ This plugin connects Claude Code to the decodx remote MCP server (`https://api.d
 
 | Skill | Use it to |
 |---|---|
-| `decodx-video` | Make a video through the MCP server, with a procedure that renders at the first attempt. |
+| `decodx-video` | Make a video through the MCP server. Claude builds most scenes as motion scenes (animated charts, diagrams and text that move with the voice), and uses a procedure that renders at the first attempt. |
 | `decodx-api` | Write code that uses the decodx REST API: render from a script or CI, receive webhooks, embed videos. |
 | `decodx-docs` | Read the current decodx documentation instead of guessing. |
 
@@ -159,7 +159,8 @@ claude-plugin/
 │   └── normalize-version.sh   # Changes 0.0.1 to v0.0.1
 └── skills/
     ├── decodx-video/
-    │   └── SKILL.md           # The procedure to make a video
+    │   ├── SKILL.md           # The procedure to make a video, motion scenes first
+    │   └── motion-scenes.md   # How to write motion scenes, with an example
     ├── decodx-api/
     │   ├── SKILL.md           # The REST API: auth, render loop, errors
     │   ├── webhooks.md        # Receive and verify webhooks
