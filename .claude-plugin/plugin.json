@@ -1,7 +1,7 @@
 {
   "name": "decodx",
   "version": "1.0.0",
-  "description": "Make narrated product videos, explainers and tutorials with decodx: connects the decodx MCP server and adds the decodx-video skill (validate \u2192 preview \u2192 render).",
+  "description": "Make narrated product videos, explainers and tutorials with decodx: connects the decodx MCP server and adds the decodx-video, decodx-api and decodx-docs skills.",
   "author": {
     "name": "decodx",
     "email": "support@decodx.ai"

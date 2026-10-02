@@ -50,10 +50,12 @@ jobs:
           jq -e '.name and .version and .description' .claude-plugin/plugin.json > /dev/null
           jq -e '.name and .owner and (.plugins | length > 0)' .claude-plugin/marketplace.json > /dev/null
           jq -e '.mcpServers | length > 0' .mcp.json > /dev/null
-          skill=skills/decodx-video/SKILL.md
-          head -n 1 "$skill" | grep -qx -- '---'
-          grep -q '^name: decodx-video$' "$skill"
-          grep -q '^description:' "$skill"
+          for skill in skills/*/SKILL.md; do
+            name="$(basename "$(dirname "$skill")")"
+            head -n 1 "$skill" | grep -qx -- '---' || { echo "::error::$skill has no frontmatter"; exit 1; }
+            grep -qx "name: $name" "$skill" || { echo "::error::$skill name must be $name"; exit 1; }
+            grep -q '^description:' "$skill" || { echo "::error::$skill has no description"; exit 1; }
+          done
 
       - name: Set the version in plugin.json
         env:

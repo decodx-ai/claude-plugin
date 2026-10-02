@@ -5,13 +5,13 @@
     "email": "support@decodx.ai"
   },
   "metadata": {
-    "description": "decodx for Claude: the decodx MCP server and the decodx-video skill for making narrated videos."
+    "description": "decodx for Claude: the decodx MCP server and skills for making narrated videos, integrating the REST API and reading the docs."
   },
   "plugins": [
     {
       "name": "decodx",
       "source": "./",
-      "description": "The decodx MCP server plus the decodx-video skill."
+      "description": "The decodx MCP server plus the decodx-video, decodx-api and decodx-docs skills."
     }
   ]
 }

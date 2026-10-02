@@ -2,7 +2,13 @@
 
 [decodx](https://decodx.ai) makes narrated videos from a list of scenes. A scene can be a slide, a screen recording, an animated chart or a talking presenter. Each video has captions, chapters and a thumbnail. The same scenes always give the same video.
 
-This plugin connects Claude Code to the decodx remote MCP server (`https://api.decodx.ai/mcp`). It also adds the `decodx-video` skill. The skill tells Claude the correct procedure to make a video that renders at the first attempt.
+This plugin connects Claude Code to the decodx remote MCP server (`https://api.decodx.ai/mcp`). It also adds three skills:
+
+| Skill | Use it to |
+|---|---|
+| `decodx-video` | Make a video through the MCP server, with a procedure that renders at the first attempt. |
+| `decodx-api` | Write code that uses the decodx REST API: render from a script or CI, receive webhooks, embed videos. |
+| `decodx-docs` | Read the current decodx documentation instead of guessing. |
 
 ## What you can do
 
@@ -109,6 +115,16 @@ Each change also accepts an `expected_version`. If another person changes the pr
 
 A render uses AI minutes from your decodx plan. Use `estimate_duration` to see the cost before the render. A render of scenes that did not change is free.
 
+## Install the skills only
+
+The skills also work in other agents, such as Cursor, Codex and Gemini CLI. Install them with the [`skills`](https://skills.sh) command:
+
+```bash
+npx skills add decodx-ai/claude-plugin
+```
+
+To install one skill, add `--skill`, for example `--skill decodx-api`. The `decodx-video` skill also needs the MCP server. See the next section.
+
 ## Connect without the plugin
 
 You can connect only the MCP server, without the skill:
@@ -142,8 +158,14 @@ claude-plugin/
 ├── scripts/
 │   └── normalize-version.sh   # Changes 0.0.1 to v0.0.1
 └── skills/
-    └── decodx-video/
-        └── SKILL.md           # The procedure to make a video
+    ├── decodx-video/
+    │   └── SKILL.md           # The procedure to make a video
+    ├── decodx-api/
+    │   ├── SKILL.md           # The REST API: auth, render loop, errors
+    │   ├── webhooks.md        # Receive and verify webhooks
+    │   └── embed.md           # Embed a video on a site
+    └── decodx-docs/
+        └── SKILL.md           # Read the current documentation
 ```
 
 ## Release a new version

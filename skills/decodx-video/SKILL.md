@@ -37,6 +37,12 @@ scenes always render the same video. You drive it through the decodx MCP server
 `render_project` runs the same checks as `validate_project` and refuses with the full list, so a
 job that would fail validation never starts.
 
+Rendering spends the workspace's AI minutes, so a person approves it first unless their workspace
+allows assistant renders. Then `render_project` returns `awaiting_approval: true` with a
+`review_url` and no job: give the user that link, then poll `get_render_request` with the
+`approval_id` — once approved it carries the job id for `get_job`. You cannot approve a render
+yourself. A re-render of an unchanged project is free and never waits.
+
 ## Writing good scenes
 
 - One idea per scene. Short slide text — text that does not fit is refused before render.
